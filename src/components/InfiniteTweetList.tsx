@@ -30,7 +30,7 @@ export function InfiniteTweetList({
   fetchNewTweets,
   hasMore = false,
 }: InfiniteTweetListProps) {
-  // if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <p>Loading...</p>;
   if (isError) return <h1>Error...</h1>;
 
   if (tweets == null || tweets.length === 0) {
@@ -45,7 +45,7 @@ export function InfiniteTweetList({
         dataLength={tweets.length}
         next={fetchNewTweets}
         hasMore={hasMore}
-        // loader={<LoadingSpinner />}
+        loader={"loading..."}
       >
         {tweets.map((tweet) => {
           return <TweetCard key={tweet.id} {...tweet} />;
@@ -99,14 +99,6 @@ function TweetCard({
       };
 
       trpcUtils.tweet.infiniteFeed.setInfiniteData({}, updateData);
-      trpcUtils.tweet.infiniteFeed.setInfiniteData(
-        { onlyFollowing: true },
-        updateData
-      );
-      trpcUtils.tweet.infiniteProfileFeed.setInfiniteData(
-        { userId: user.id },
-        updateData
-      );
     },
   });
 
